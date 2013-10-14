@@ -73,7 +73,7 @@ class nxcExtendedAttributeFilter {
 			$joins .= 'ezuser_setting.is_enabled=' . (int) $params['enabled'] . ' AND ';
 		}
 		$return = array(
-			'tables'  => ', ezuser, ezuser_setting',
+			'tables'  => ' JOIN ezuser JOIN ezuser_setting',
 			'joins'   => $joins
 		);
 		return $return;
@@ -126,7 +126,7 @@ class nxcExtendedAttributeFilter {
 		}
 
 		$return = array(
-			'tables'  => ', ezcontentobject_link as ' . $table,
+			'tables'  => ' JOIN ezcontentobject_link as ' . $table,
 			'joins'   => $joins
 		);
 		return $return;
@@ -173,7 +173,7 @@ class nxcExtendedAttributeFilter {
 		}
 
 		$return = array(
-			'tables'  => ', ezcontentobject_attribute as ' . $table,
+			'tables'  => ' JOIN ezcontentobject_attribute as ' . $table,
 			'joins'   => $joins
 		);
 		return $return;
@@ -200,8 +200,8 @@ class nxcExtendedAttributeFilter {
 			$params['lon'] = (float) $params['lon'];
 			$latTable = 'lat' . $params['index'];
 			$lngTable = 'lng' . $params['index'];
-			$tables = ', ezcontentobject_attribute as ' . $latTable .
-				', ezcontentobject_attribute as ' . $lngTable;
+			$tables = ' JOIN ezcontentobject_attribute as ' . $latTable .
+				' JOIN ezcontentobject_attribute as ' . $lngTable;
 
 			$locationField = 'data_float';
 			if( isset( $params['location_db_field'] ) ) {
@@ -263,8 +263,8 @@ class nxcExtendedAttributeFilter {
 
 		$startDateVar = 'sd' . $params['index'];
 		$endDateVar   = 'ed' . $params['index'];
-		$tables = ', ezcontentobject_attribute as ' . $startDateVar
-			. ', ezcontentobject_attribute as ' . $endDateVar;
+		$tables = ' JOIN ezcontentobject_attribute as ' . $startDateVar
+			. ' JOIN ezcontentobject_attribute as ' . $endDateVar;
 		$joins = $startDateVar . '.contentobject_id = ezcontentobject.id AND ' .
 			$startDateVar . '.version = ezcontentobject.current_version AND ' .
 			$startDateVar . '.contentclassattribute_id = ' . $startDateAttributeID . ' AND ';
@@ -374,7 +374,7 @@ class nxcExtendedAttributeFilter {
 			return array();
 		}
 
-		$tables  = ', ezcontentobject_attribute as attrs_group_sort' . $params['index'];
+		$tables  = ' JOIN ezcontentobject_attribute as attrs_group_sort' . $params['index'];
 		$columns = ', attrs_group_sort' . $params['index'] . '.sort_key_'
 			. $sortKey . ' AS ' . $sortField;
 		$joins = 'attrs_group_sort' . $params['index'] . '.contentobject_id = ezcontentobject.id AND '
@@ -413,7 +413,7 @@ class nxcExtendedAttributeFilter {
 
 		$db           = eZDB::instance();
 		$attributeVar = 'fc' . $params['index'];
-		$tables       = ', ezcontentobject_attribute as ' . $attributeVar;
+		$tables       = ' JOIN ezcontentobject_attribute as ' . $attributeVar;
 		$joins        = $attributeVar . '.contentobject_id = ezcontentobject.id AND ' .
 			$attributeVar . '.version = ezcontentobject.current_version AND ' .
 			$attributeVar . '.contentclassattribute_id = ' . $attributeID . ' AND ' .
@@ -441,7 +441,7 @@ class nxcExtendedAttributeFilter {
 
 		$db           = eZDB::instance();
 		$attributeVar = 'fas' . $params['index'];
-		$tables       = ', ezcontentobject_attribute as ' . $attributeVar;
+		$tables       = ' JOIN ezcontentobject_attribute as ' . $attributeVar;
 		$joins        = $attributeVar . '.contentobject_id = ezcontentobject.id AND ' .
 			$attributeVar . '.version = ezcontentobject.current_version AND ' .
 			$attributeVar . '.contentclassattribute_id = ' . $attributeID . ' AND ';
