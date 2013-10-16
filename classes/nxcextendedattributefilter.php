@@ -167,7 +167,7 @@ class nxcExtendedAttributeFilter {
 		}
 
 		$return = array(
-			'tables'  => ', ezcontentobject_link as ' . $table,
+			'tables'  => ' JOIN ezcontentobject_link as ' . $table,
 			'joins'   => $joins
 		);
 		return $return;
